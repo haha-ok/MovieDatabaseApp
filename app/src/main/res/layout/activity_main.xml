@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5B109"
+        android:fontFamily="@font/amiko_semibold"
+        android:gravity="center"
+        android:text="Search a title"
+        android:textColor="#000000"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Type a title"
+        android:paddingLeft="10dp"
+        android:id="@+id/et"
+        android:layout_below="@+id/search"
+        android:background="@drawable/round_edit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/amiko_semibold"
+        android:text="Find!"
+        android:textColor="#000000" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/b1"
+        android:scaleX="2.5"
+        android:scaleY="2.5"
+        android:id="@+id/pb"
+        android:alpha="0"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:id="@+id/serch"
+        android:layout_below="@+id/pb"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:alpha="0"
+        android:textSize="20dp"
+        android:text="   searching....."
+        android:textColor="#F5B109"/>
+
+
+    <ListView
+        android:id="@+id/watchlist"
+        android:layout_width="300dp"
+        android:layout_height="260dp"
+        android:layout_below="@id/b1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/amiko_semibold"
+        android:textColor="#000000"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/sa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F5B109"
+        android:fontFamily="@font/amiko_bold"
+        android:gravity="center"
+        android:alpha="0"
+        android:text="Go to your watchlist?"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
