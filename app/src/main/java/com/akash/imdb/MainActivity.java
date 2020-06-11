@@ -47,6 +47,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.R.layout.simple_expandable_list_item_1;
+import static com.akash.imdb.R.layout.gold_text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     String myresponse;
     SQLiteDatabase myDatabase;
     ArrayAdapter<String> arrayAdapter;
-    List<String> data;
+    ArrayList<String> data;
     ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             c.moveToNext();
         }
 
-        arrayAdapter = new ArrayAdapter<String>(this, simple_expandable_list_item_1,data);
+        arrayAdapter = new ArrayAdapter<String>(this, gold_text,data);
         b2.setAdapter(arrayAdapter);
 
         if(data.size()!=0){

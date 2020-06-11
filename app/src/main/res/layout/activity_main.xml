@@ -30,10 +30,12 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:hint="Type a title"
+        android:textColorHint="#F5B109"
+        android:textColor="#F5B109"
         android:paddingLeft="10dp"
         android:id="@+id/et"
         android:layout_below="@+id/search"
-        android:background="@drawable/round_edit"
+        android:background="@drawable/list_trans"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         />
@@ -45,10 +47,10 @@
         android:layout_below="@+id/et"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/round_button"
+        android:background="@drawable/list_trans"
         android:fontFamily="@font/amiko_semibold"
         android:text="Find!"
-        android:textColor="#000000" />
+        android:textColor="#F5B109" />
 
 
 
@@ -83,12 +85,9 @@
         android:layout_width="360dp"
         android:layout_height="300dp"
         android:layout_below="@id/b1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
         android:background="@drawable/round_button"
-        android:fontFamily="@font/amiko_semibold"
-        android:textColor="#000000"
-        android:textSize="35dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
 
         </RelativeLayout>
     </ScrollView>

@@ -88,7 +88,7 @@ public class NextActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("cast");
             String cast1 = "";
             for (int i = 0; i < jsonArray.length(); i++) {
-                cast1 += "*" + jsonArray.getJSONObject(i).getString("actor") + "   as   " + jsonArray.getJSONObject(i).getString("character") + "\n\n";
+                cast1 += "#" + jsonArray.getJSONObject(i).getString("actor") + "   as   " + jsonArray.getJSONObject(i).getString("character") + "\n\n";
             }
 
             title.setText(name);
