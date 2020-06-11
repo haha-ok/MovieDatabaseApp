@@ -31,17 +31,33 @@
             android:layout_height="match_parent">
 
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressbar"
+                android:layout_centerHorizontal="true"
+                android:tooltipText="Loading poster"
+                android:layout_marginTop="20dp"/>
 
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="400dp"
+                android:id="@+id/imageview"
+                />
             <TextView
                 android:id="@+id/plot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/imageview"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/amiko"
                 android:text="plot"
                 android:textColor="#F5B109"
                 android:textSize="30dp" />
+
+
 
             <TextView
                 android:id="@+id/length"
@@ -120,6 +136,8 @@
 
     </ScrollView>
 
+
+
     <TextView
         android:id="@+id/sa"
         android:layout_width="match_parent"
@@ -128,7 +146,7 @@
         android:background="#F5B109"
         android:fontFamily="@font/amiko_bold"
         android:gravity="center"
-        android:text="Search Again?"
+        android:text="Add to watchlist?"
         android:textColor="#000000"
         android:textSize="25dp"
         android:textStyle="bold" />

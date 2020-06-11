@@ -1,5 +1,6 @@
 package com.akash.imdb;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,12 +9,22 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestFutureTarget;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -36,15 +47,16 @@ public class NextActivity extends AppCompatActivity {
     RatingBar rb;
     String name;
     String rating1;
+    String sqlstring;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
+        progressBar = findViewById(R.id.progressbar);
 
-        final SQLiteDatabase myDatabase = openOrCreateDatabase("Movielistseven",MODE_PRIVATE,null);
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS movies (moviename VARCHAR, rating VARCHAR)");
-
-
+        final SQLiteDatabase myDatabase = openOrCreateDatabase("Movielistten", MODE_PRIVATE, null);
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS movies (moviename VARCHAR)");
 
         rb = findViewById(R.id.rb);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,6 +74,7 @@ public class NextActivity extends AppCompatActivity {
         String id = extras.getString("id");
         //index = extras.getInt("size",-1);
 
+        String url = null;
         try {
             JSONObject jsonObject = new JSONObject(id);
             name = jsonObject.getString("title");
@@ -69,6 +82,7 @@ public class NextActivity extends AppCompatActivity {
             String year1 = jsonObject.getString("year");
             rating1 = jsonObject.getString("rating");
             String plot1 = jsonObject.getString("plot");
+            url = jsonObject.getString("poster");
             String ratingVotes1 = jsonObject.getString("rating_votes");
 
             JSONArray jsonArray = jsonObject.getJSONArray("cast");
@@ -94,30 +108,50 @@ public class NextActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        ImageView imageview = findViewById(R.id.imageview);
+
+        progressBar.setVisibility(View.VISIBLE);
+        //Glide.with(NextActivity.this).load(url).into(imageview);
+        Glide.with(this)
+                .load(url)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                }).into(imageview);
+
+        sqlstring = name + ": " + rating1;
         sa = findViewById(R.id.sa);
 
         sa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                try {
-                    myDatabase.execSQL("INSERT INTO movies (moviename, rating) VALUES ( '"+name+"','"+rating1+"' )");
-                    Toast.makeText(getApplicationContext(),"Added to watchlist!",Toast.LENGTH_LONG).show();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
                 Cursor c = myDatabase.rawQuery("SELECT * FROM movies", null);
                 int nameIndex = c.getColumnIndex("moviename");
-                int ratingIndex = c.getColumnIndex("rating");
+                //int ratingIndex = c.getColumnIndex("rating");
 
                 c.moveToFirst();
 
-                while (!c.isAfterLast()){
-                    Log.i("name",c.getString(nameIndex));
-                    Log.i("rating",c.getString(ratingIndex));
+                boolean flag = true;
+                while (!c.isAfterLast()) {
+                    if (c.getString(nameIndex).equals(sqlstring)) {
+                        flag = false;
+                        Toast.makeText(getApplicationContext(), "Already exists in your watchlist!", Toast.LENGTH_LONG).show();
+                    }
                     c.moveToNext();
+                }
+
+                if (flag) {
+                    myDatabase.execSQL("INSERT INTO movies (moviename) VALUES ( '" + sqlstring + "' )");
+                    Toast.makeText(getApplicationContext(), "Added to watchlist!", Toast.LENGTH_LONG).show();
                 }
             }
         });
